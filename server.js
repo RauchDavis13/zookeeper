@@ -1,27 +1,23 @@
-const { animals } = require('./data/animals.json');
 const express = require('express');
+const { animals } = require('./data/animals');
+
 const PORT = process.env.PORT || 3001;
 const app = express();
 
 function filterByQuery(query, animalsArray) {
   let personalityTraitsArray = [];
-
   let filteredResults = animalsArray;
   if (query.personalityTraits) {
-    // save personalityTraits as a dedicated array
-    // if personalityTraits is a string, place it into a new array and save
     if (typeof query.personalityTraits === 'string') {
       personalityTraitsArray = [query.personalityTraits];
     } else {
       personalityTraitsArray = query.personalityTraits;
     }
-    // loop through each trait in the personalityTraits array:
     personalityTraitsArray.forEach(trait => {
       filteredResults = filteredResults.filter(
-        animal => animal.personalityTraits.indexOf(trait) !==-1
+        animal => animal.personalityTraits.indexOf(trait) !== -1
       );
     });
-
   }
   if (query.diet) {
     filteredResults = filteredResults.filter(animal => animal.diet === query.diet);
@@ -55,9 +51,8 @@ app.get('/api/animals/:id', (req, res) => {
   } else {
     res.send(404);
   }
-    
-})
+});
 
 app.listen(PORT, () => {
   console.log(`API server now on port ${PORT}!`);
-})
+});
