@@ -1,5 +1,3 @@
-const { addListener } = require("process");
-
 const $animalForm = document.querySelector('#animals-form');
 const $displayArea = document.querySelector('#display-area');
 
@@ -36,7 +34,7 @@ const getAnimals = (formData = {}) => {
   fetch(queryUrl)
     .then(response => {
       if (!response.ok) {
-        return addListener('Error: ' + response.statusText);;
+        return alert('Error: ' + response.statusText);
       }
       return response.json();
     })
@@ -44,7 +42,6 @@ const getAnimals = (formData = {}) => {
       console.log(animalData);
       printResults(animalData);
     });
-
 };
 
 const handleGetAnimalsSubmit = event => {
